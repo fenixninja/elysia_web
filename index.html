@@ -205,10 +205,20 @@
             color: var(--ebony-black);
         }
 
+        /* Hero Visual Section */
         .hero-visual {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            gap: 2rem;
+        }
+
+        .logo-e-hero {
+            max-width: 150px;
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 30px rgba(212, 175, 55, 0.4));
         }
 
         .logo-elysia-large {
@@ -216,12 +226,6 @@
             width: 100%;
             height: auto;
             filter: drop-shadow(0 20px 40px rgba(212, 175, 55, 0.3));
-            animation: glow 3s ease-in-out infinite;
-        }
-
-        @keyframes glow {
-            0%, 100% { filter: drop-shadow(0 20px 40px rgba(212, 175, 55, 0.3)); }
-            50% { filter: drop-shadow(0 20px 60px rgba(212, 175, 55, 0.5)); }
         }
 
         /* Features Section */
@@ -456,6 +460,63 @@
             color: var(--soft-gold);
         }
 
+        /* Animation Keyframes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Animation Utility Classes */
+        .animate-on-load {
+            opacity: 0;
+        }
+
+        .animate-on-load.loaded {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-fade {
+            opacity: 0;
+        }
+
+        .animate-fade.loaded {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .animate-scale {
+            opacity: 0;
+        }
+
+        .animate-scale.loaded {
+            animation: scaleIn 1s ease-out forwards;
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .hero-content {
@@ -491,6 +552,10 @@
 
             .hero-text p {
                 font-size: 1.1rem;
+            }
+
+            .logo-e-hero {
+                max-width: 100px;
             }
 
             .features-grid {
@@ -542,15 +607,16 @@
     <section class="hero" id="inicio">
         <div class="hero-content">
             <div class="hero-text">
-                <h1>Tu representante <span class="highlight">inteligente</span> disponible 24/7</h1>
-                <p>Potencia tu marca personal y negocio con inteligencia artificial de vanguardia. Élysia es la plataforma exclusiva para modelos de alto nivel que buscan profesionalizar su presencia digital.</p>
-                <div class="hero-buttons">
+                <h1 class="animate-on-load">Tu representante <span class="highlight">inteligente</span> disponible 24/7</h1>
+                <p class="animate-on-load">Potencia tu marca personal y negocio con inteligencia artificial de vanguardia. Élysia es la plataforma exclusiva para modelos de alto nivel que buscan profesionalizar su presencia digital.</p>
+                <div class="hero-buttons animate-on-load">
                     <button class="btn-primary">Solicitar Acceso</button>
                     <button class="btn-secondary">Conocer Más</button>
                 </div>
             </div>
             <div class="hero-visual">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/texto_elysia-UIs1OhJZvo6ogiwkyImcQkPEfmX1La.png" alt="Élysia" class="logo-elysia-large">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo_E-WXcDVyh13prQF5SXYBRgGcFiH7oMBL.png" alt="Élysia Logo E" class="logo-e-hero animate-scale">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/texto_elysia-UIs1OhJZvo6ogiwkyImcQkPEfmX1La.png" alt="Élysia" class="logo-elysia-large animate-scale">
             </div>
         </div>
     </section>
@@ -558,36 +624,36 @@
     <!-- Features Section -->
     <section class="features" id="caracteristicas">
         <div class="section-header">
-            <h2>Representación de Élite</h2>
-            <p>Tecnología de vanguardia diseñada para profesionales que valoran la excelencia y la discreción</p>
+            <h2 class="animate-on-load">Representación de Élite</h2>
+            <p class="animate-on-load">Tecnología de vanguardia diseñada para profesionales que valoran la excelencia y la discreción</p>
         </div>
         <div class="features-grid">
-            <div class="feature-card">
+            <div class="feature-card animate-on-load">
                 <div class="feature-icon">🤖</div>
                 <h3>IA Personalizada</h3>
                 <p>Chatbot entrenado específicamente para representar tu marca con tu voz, estilo y valores únicos.</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card animate-on-load">
                 <div class="feature-icon">🔒</div>
                 <h3>Seguridad Total</h3>
                 <p>Protección de datos de nivel empresarial. Tu información y la de tus clientes siempre segura.</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card animate-on-load">
                 <div class="feature-icon">📈</div>
                 <h3>Marketing Inteligente</h3>
                 <p>Herramientas avanzadas de autopromoción y análisis para maximizar tu alcance y conversiones.</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card animate-on-load">
                 <div class="feature-icon">💼</div>
                 <h3>Gestión Profesional</h3>
                 <p>Administra reservas, consultas y negociaciones de manera eficiente y profesional.</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card animate-on-load">
                 <div class="feature-icon">🌐</div>
                 <h3>Presencia Global</h3>
                 <p>Atiende a clientes en múltiples idiomas y zonas horarias sin límites.</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card animate-on-load">
                 <div class="feature-icon">✨</div>
                 <h3>Experiencia Premium</h3>
                 <p>Interfaz elegante y sofisticada que refleja tu nivel de profesionalismo.</p>
@@ -598,19 +664,19 @@
     <!-- Stats Section -->
     <section class="stats">
         <div class="stats-container">
-            <div class="stat-item">
+            <div class="stat-item animate-on-load">
                 <h3>24/7</h3>
                 <p>Disponibilidad</p>
             </div>
-            <div class="stat-item">
+            <div class="stat-item animate-on-load">
                 <h3>100%</h3>
                 <p>Confidencial</p>
             </div>
-            <div class="stat-item">
+            <div class="stat-item animate-on-load">
                 <h3>∞</h3>
                 <p>Escalabilidad</p>
             </div>
-            <div class="stat-item">
+            <div class="stat-item animate-on-load">
                 <h3>AI</h3>
                 <p>Tecnología</p>
             </div>
@@ -620,9 +686,9 @@
     <!-- CTA Section -->
     <section class="cta-section" id="contacto">
         <div class="cta-content">
-            <h2>Únete a la élite</h2>
-            <p>Acceso exclusivo para modelos profesionales. Solicita tu invitación y descubre cómo Élysia puede transformar tu carrera.</p>
-            <form class="cta-form">
+            <h2 class="animate-on-load">Únete a la élite</h2>
+            <p class="animate-on-load">Acceso exclusivo para modelos profesionales. Solicita tu invitación y descubre cómo Élysia puede transformar tu carrera.</p>
+            <form class="cta-form animate-on-load">
                 <input type="email" placeholder="Tu correo electrónico" required>
                 <button type="submit">Solicitar Invitación</button>
             </form>
@@ -640,13 +706,42 @@
             </ul>
             <div class="footer-social">
                 <svg class="social-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
-                <svg class="social-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                <svg class="social-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
             </div>
         </div>
     </footer>
 
     <script>
-        // Smooth scrolling for navigation links
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.animate-on-load, .animate-fade, .animate-scale');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('loaded');
+                        }, index * 100);
+                        
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            const heroElements = document.querySelectorAll('.hero .animate-on-load, .hero .animate-scale');
+            heroElements.forEach((element, index) => {
+                setTimeout(() => {
+                    element.classList.add('loaded');
+                }, 200 + (index * 150));
+            });
+        });
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -660,7 +755,6 @@
             });
         });
 
-        // Form submission handler
         document.querySelector('.cta-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const email = this.querySelector('input[type="email"]').value;
