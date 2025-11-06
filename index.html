@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elysia - Bot Conversacional Premium</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>Élysia - Representación Inteligente para Modelos de Alto Nivel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -13,779 +16,656 @@
         }
 
         :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #1a1a1a;
-            --bg-tertiary: #2a2a2a;
-            --gold: #d4af37;
-            --gold-light: #e8c547;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
-            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
-            --shadow-lg: 0 16px 48px rgba(212, 175, 55, 0.15);
+            --ebony-black: #0B0B0B;
+            --soft-gold: #D4AF37;
+            --ivory: #F8F5F0;
+            --deep-burgundy: #4B1E2F;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-            color: var(--text-primary);
+            font-family: 'Lato', sans-serif;
+            color: var(--ivory);
+            background-color: var(--ebony-black);
+            line-height: 1.6;
             overflow-x: hidden;
-            min-height: 100vh;
         }
 
-        /* Animación de fondo */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 2;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
         }
 
         /* Header */
         header {
-            text-align: center;
-            margin-bottom: 60px;
-            animation: slideDown 0.8s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .logo {
-            display: inline-block;
-            margin-bottom: 20px;
-            font-size: 14px;
-            letter-spacing: 3px;
-            color: var(--gold);
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        h1 {
-            font-size: 4rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
-            line-height: 1.1;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 50px;
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-
-        /* Countdown Timer */
-        .countdown-section {
-            background: rgba(26, 26, 26, 0.6);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(11, 11, 11, 0.95);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 20px;
-            padding: 60px 40px;
-            margin-bottom: 60px;
-            box-shadow: var(--shadow-lg);
-            animation: fadeInUp 0.8s ease-out 0.2s both;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .countdown-title {
-            text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 40px;
-            color: var(--gold);
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
-        .countdown-wrapper {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+        .logo-e {
+            height: 40px;
+            width: auto;
         }
 
-        @media (max-width: 768px) {
-            .countdown-wrapper {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
-            }
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
         }
 
-        .countdown-item {
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 15px;
-            padding: 25px 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .countdown-item::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
-        .countdown-item:hover {
-            background: rgba(212, 175, 55, 0.1);
-            border-color: rgba(212, 175, 55, 0.6);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
-        }
-
-        .countdown-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--gold);
-            display: block;
-            margin-bottom: 8px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .countdown-label {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-            position: relative;
-            z-index: 1;
-        }
-
-        .countdown-message {
-            text-align: center;
-            font-size: 1.1rem;
-            color: var(--gold);
-            margin-top: 20px;
-            font-weight: 600;
-        }
-
-        /* Sección de formulario - Whitelist */
-        .whitelist-section {
-            background: rgba(26, 26, 26, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 20px;
-            padding: 50px 40px;
-            margin-bottom: 40px;
-            box-shadow: var(--shadow-lg);
-            animation: fadeInUp 0.8s ease-out 0.4s both;
-        }
-
-        .form-title {
-            font-size: 2rem;
-            text-align: center;
-            margin-bottom: 15px;
-            color: var(--text-primary);
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-
-        .form-subtitle {
-            text-align: center;
-            color: var(--text-secondary);
-            margin-bottom: 40px;
-            font-size: 1rem;
-            letter-spacing: 0.5px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            color: var(--gold);
-            font-weight: 600;
+        .nav-links a {
+            color: var(--ivory);
+            text-decoration: none;
             font-size: 0.95rem;
             letter-spacing: 0.5px;
+            transition: color 0.3s ease;
         }
 
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 16px;
-            background: rgba(42, 42, 42, 0.5);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 10px;
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 1rem;
-            transition: all 0.3s ease;
+        .nav-links a:hover {
+            color: var(--soft-gold);
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            background: rgba(42, 42, 42, 0.7);
-            border-color: var(--gold);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        /* Botones */
-        .button-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 40px;
-        }
-
-        @media (max-width: 600px) {
-            .button-group {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .btn {
-            padding: 16px 32px;
-            font-size: 1rem;
-            font-weight: 600;
+        .cta-button {
+            background: linear-gradient(135deg, var(--soft-gold), #C19B2E);
+            color: var(--ebony-black);
+            padding: 0.75rem 2rem;
             border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
+            border-radius: 2px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
             letter-spacing: 1px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            padding: 8rem 5% 4rem;
+            background: linear-gradient(135deg, var(--ebony-black) 0%, var(--deep-burgundy) 100%);
             position: relative;
             overflow: hidden;
         }
 
-        .btn::before {
+        .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: left 0.3s ease;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-            color: var(--bg-primary);
-            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 32px rgba(212, 175, 55, 0.4);
-        }
-
-        .btn-secondary {
-            background: rgba(212, 175, 55, 0.1);
-            color: var(--gold);
-            border: 2px solid var(--gold);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(212, 175, 55, 0.2);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2);
-        }
-
-        .btn-whatsapp {
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-            color: white;
-            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
-        }
-
-        .btn-whatsapp:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 32px rgba(37, 211, 102, 0.4);
-        }
-
-        .whatsapp-icon {
-            font-size: 1.3rem;
-        }
-
-        /* Toast Notifications */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(212, 175, 55, 0.9);
-            color: var(--bg-primary);
-            padding: 16px 24px;
-            border-radius: 10px;
-            box-shadow: var(--shadow-md);
-            animation: slideIn 0.3s ease;
-            z-index: 1000;
-            max-width: 300px;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideOut {
-            to {
-                opacity: 0;
-                transform: translateX(100px);
-            }
-        }
-
-        .toast.show {
-            animation: slideIn 0.3s ease;
-        }
-
-        .toast.hide {
-            animation: slideOut 0.3s ease;
-        }
-
-        /* Efecto de partículas */
-        .particle {
-            position: fixed;
-            pointer-events: none;
-            width: 4px;
-            height: 4px;
-            background: var(--gold);
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
             border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-50px, 50px); }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
             z-index: 1;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .subtitle {
-                font-size: 1rem;
-            }
-
-            .countdown-section,
-            .whitelist-section {
-                padding: 40px 24px;
-            }
-
-            .countdown-title {
-                font-size: 1.2rem;
-            }
-
-            .countdown-number {
-                font-size: 2rem;
-            }
-
-            .form-title {
-                font-size: 1.5rem;
-            }
+        .hero-text h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--ivory);
         }
 
-        /* Loading spinner */
-        .spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(10, 10, 10, 0.2);
-            border-top-color: var(--bg-primary);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+        .hero-text .highlight {
+            color: var(--soft-gold);
+            font-style: italic;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .hero-text p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            color: rgba(248, 245, 240, 0.85);
+            line-height: 1.8;
         }
 
-        /* Elysia specific styling with futuristic font and glow animation */
-        .elysia-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 5rem;
-            font-weight: 900;
-            letter-spacing: 4px;
-            margin: 40px 0;
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .btn-primary {
+            background: var(--soft-gold);
+            color: var(--ebony-black);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 2px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #C19B2E;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--ivory);
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--ivory);
+            border-radius: 2px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--ivory);
+            color: var(--ebony-black);
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-elysia-large {
+            max-width: 500px;
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 20px 40px rgba(212, 175, 55, 0.3));
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 20px 40px rgba(212, 175, 55, 0.3)); }
+            50% { filter: drop-shadow(0 20px 60px rgba(212, 175, 55, 0.5)); }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 5%;
+            background: var(--ebony-black);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--soft-gold);
+        }
+
+        .section-header p {
+            font-size: 1.15rem;
+            color: rgba(248, 245, 240, 0.8);
+        }
+
+        .features-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(75, 30, 47, 0.3), rgba(11, 11, 11, 0.8));
+            padding: 3rem 2rem;
+            border-radius: 4px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.4s ease;
             position: relative;
-            display: inline-block;
-            background: linear-gradient(90deg, 
-                #d4af37 0%, 
-                #ffffff 25%, 
-                #d4af37 50%, 
-                #ffffff 75%, 
-                #d4af37 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: glowShift 3s linear infinite;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
-            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));
+            overflow: hidden;
         }
 
-        /* Glow effect animation */
-        @keyframes glowShift {
-            0% {
-                background-position: 0% center;
-                filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3)) drop-shadow(0 0 20px rgba(212, 175, 55, 0.2));
-            }
-            50% {
-                filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.7)) drop-shadow(0 0 50px rgba(212, 175, 55, 0.4));
-            }
-            100% {
-                background-position: 200% center;
-                filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3)) drop-shadow(0 0 20px rgba(212, 175, 55, 0.2));
-            }
-        }
-
-        /* Reflective light sweep animation */
-        .elysia-title::after {
+        .feature-card::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
+            left: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(255, 255, 255, 0.4) 25%,
-                rgba(255, 255, 255, 0.7) 50%,
-                rgba(255, 255, 255, 0.4) 75%,
-                transparent 100%);
-            border-radius: 10px;
-            animation: reflectSweep 3s ease-in-out infinite;
-            pointer-events: none;
-            mix-blend-mode: screen;
-            z-index: 10;
+            height: 4px;
+            background: linear-gradient(90deg, var(--soft-gold), transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
         }
 
-        /* Reflective sweep movement */
-        @keyframes reflectSweep {
-            0% {
-                left: -100%;
-                opacity: 0;
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--soft-gold);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--soft-gold);
+        }
+
+        .feature-card p {
+            color: rgba(248, 245, 240, 0.85);
+            line-height: 1.8;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, var(--deep-burgundy), var(--ebony-black));
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3.5rem;
+            color: var(--soft-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            color: rgba(248, 245, 240, 0.8);
+            letter-spacing: 0.5px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 5%;
+            background: var(--ebony-black);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--ivory);
+        }
+
+        .cta-content p {
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+            color: rgba(248, 245, 240, 0.85);
+        }
+
+        .cta-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-form input {
+            flex: 1;
+            padding: 1.25rem 1.5rem;
+            background: rgba(248, 245, 240, 0.05);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 2px;
+            color: var(--ivory);
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .cta-form input:focus {
+            outline: none;
+            border-color: var(--soft-gold);
+        }
+
+        .cta-form input::placeholder {
+            color: rgba(248, 245, 240, 0.5);
+        }
+
+        .cta-form button {
+            padding: 1.25rem 3rem;
+            background: var(--soft-gold);
+            color: var(--ebony-black);
+            border: none;
+            border-radius: 2px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cta-form button:hover {
+            background: #C19B2E;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 5%;
+            background: var(--ebony-black);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            height: 50px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(248, 245, 240, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--soft-gold);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            color: rgba(248, 245, 240, 0.7);
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-icon:hover {
+            color: var(--soft-gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
             }
-            25% {
-                opacity: 1;
+
+            .hero-text h1 {
+                font-size: 3rem;
             }
-            50% {
-                left: 100%;
-                opacity: 1;
+
+            .hero-buttons {
+                justify-content: center;
             }
-            100% {
-                left: 200%;
-                opacity: 0;
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-text p {
+                font-size: 1.1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .cta-form {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+
+            .cta-content h2 {
+                font-size: 2.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header>
-            <div class="logo">✨ Próximamente</div>
-            <h1 class="elysia-title">Elysia</h1>
-            <p class="subtitle">El Bot Conversacional más Inteligente del Mercado</p>
-        </header>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo_E-WXcDVyh13prQF5SXYBRgGcFiH7oMBL.png" alt="Élysia Logo" class="logo-e">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#caracteristicas">Características</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <button class="cta-button">Comenzar</button>
+        </nav>
+    </header>
 
-        <!-- Countdown -->
-        <section class="countdown-section">
-            <div class="countdown-title">Lanzamiento en</div>
-            <div class="countdown-wrapper">
-                <div class="countdown-item">
-                    <span class="countdown-number" id="days">0</span>
-                    <span class="countdown-label">Días</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="hours">0</span>
-                    <span class="countdown-label">Horas</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="minutes">0</span>
-                    <span class="countdown-label">Minutos</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="seconds">0</span>
-                    <span class="countdown-label">Segundos</span>
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Tu representante <span class="highlight">inteligente</span> disponible 24/7</h1>
+                <p>Potencia tu marca personal y negocio con inteligencia artificial de vanguardia. Élysia es la plataforma exclusiva para modelos de alto nivel que buscan profesionalizar su presencia digital.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary">Solicitar Acceso</button>
+                    <button class="btn-secondary">Conocer Más</button>
                 </div>
             </div>
-            <p class="countdown-message">Prepárate para revolucionar tus conversaciones</p>
-        </section>
+            <div class="hero-visual">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/texto_elysia-UIs1OhJZvo6ogiwkyImcQkPEfmX1La.png" alt="Élysia" class="logo-elysia-large">
+            </div>
+        </div>
+    </section>
 
-        <!-- Whitelist Form -->
-        <section class="whitelist-section">
-            <h2 class="form-title">Únete a la Lista Blanca</h2>
-            <p class="form-subtitle">Sé de los primeros en acceder a Elysia. Regístrate ahora.</p>
-            
-            <form id="whitelistForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="name">Nombre Completo *</label>
-                        <input 
-                            type="text" 
-                            id="name" 
-                            name="name" 
-                            placeholder="Tu nombre"
-                            required
-                        >
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Correo Electrónico *</label>
-                        <input 
-                            type="email" 
-                            id="email" 
-                            name="email" 
-                            placeholder="tu@email.com"
-                            required
-                        >
-                    </div>
-                </div>
+    <!-- Features Section -->
+    <section class="features" id="caracteristicas">
+        <div class="section-header">
+            <h2>Representación de Élite</h2>
+            <p>Tecnología de vanguardia diseñada para profesionales que valoran la excelencia y la discreción</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>IA Personalizada</h3>
+                <p>Chatbot entrenado específicamente para representar tu marca con tu voz, estilo y valores únicos.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Seguridad Total</h3>
+                <p>Protección de datos de nivel empresarial. Tu información y la de tus clientes siempre segura.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3>Marketing Inteligente</h3>
+                <p>Herramientas avanzadas de autopromoción y análisis para maximizar tu alcance y conversiones.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💼</div>
+                <h3>Gestión Profesional</h3>
+                <p>Administra reservas, consultas y negociaciones de manera eficiente y profesional.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>Presencia Global</h3>
+                <p>Atiende a clientes en múltiples idiomas y zonas horarias sin límites.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✨</div>
+                <h3>Experiencia Premium</h3>
+                <p>Interfaz elegante y sofisticada que refleja tu nivel de profesionalismo.</p>
+            </div>
+        </div>
+    </section>
 
-                <div class="form-group">
-                    <label for="company">Empresa (Opcional)</label>
-                    <input 
-                        type="text" 
-                        id="company" 
-                        name="company" 
-                        placeholder="Tu empresa"
-                    >
-                </div>
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>24/7</h3>
+                <p>Disponibilidad</p>
+            </div>
+            <div class="stat-item">
+                <h3>100%</h3>
+                <p>Confidencial</p>
+            </div>
+            <div class="stat-item">
+                <h3>∞</h3>
+                <p>Escalabilidad</p>
+            </div>
+            <div class="stat-item">
+                <h3>AI</h3>
+                <p>Tecnología</p>
+            </div>
+        </div>
+    </section>
 
-                <div class="form-group">
-                    <label for="message">¿Por qué te interesa Elysia? (Opcional)</label>
-                    <textarea 
-                        id="message" 
-                        name="message" 
-                        placeholder="Cuéntanos qué esperas de Elysia..."
-                    ></textarea>
-                </div>
-
-                <div class="button-group">
-                    <button type="submit" class="btn btn-primary">
-                        📬 Únirme a la Lista
-                    </button>
-                    <a href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=Hola%20Elysia%2C%20me%20gustaría%20probar%20la%20demo" 
-                       class="btn btn-whatsapp" 
-                       target="_blank">
-                        <span class="whatsapp-icon">💬</span> Probar Demo
-                    </a>
-                </div>
+    <!-- CTA Section -->
+    <section class="cta-section" id="contacto">
+        <div class="cta-content">
+            <h2>Únete a la élite</h2>
+            <p>Acceso exclusivo para modelos profesionales. Solicita tu invitación y descubre cómo Élysia puede transformar tu carrera.</p>
+            <form class="cta-form">
+                <input type="email" placeholder="Tu correo electrónico" required>
+                <button type="submit">Solicitar Invitación</button>
             </form>
-        </section>
-    </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/texto_elysia-UIs1OhJZvo6ogiwkyImcQkPEfmX1La.png" alt="Élysia" class="footer-logo">
+            <ul class="footer-links">
+                <li><a href="#privacidad">Privacidad</a></li>
+                <li><a href="#terminos">Términos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <div class="footer-social">
+                <svg class="social-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                <svg class="social-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // ==================== COUNTDOWN TIMER ====================
-        function updateCountdown() {
-            // CAMBIA ESTA FECHA AL LANZAMIENTO DE TU SERVICIO
-            const launchDate = new Date('2025-12-31T00:00:00Z').getTime();
-            const now = new Date().getTime();
-            const distance = launchDate - now;
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
 
-            if (distance < 0) {
-                document.getElementById('days').textContent = '0';
-                document.getElementById('hours').textContent = '0';
-                document.getElementById('minutes').textContent = '0';
-                document.getElementById('seconds').textContent = '0';
-                document.querySelector('.countdown-message').textContent = '¡Elysia ya está disponible!';
-                document.querySelector('.countdown-message').style.color = '#25D366';
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('days').textContent = String(days).padStart(2, '0');
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-        }
-
-        // Inicializar countdown
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-
-        // ==================== FORM SUBMISSION ====================
-        const form = document.getElementById('whitelistForm');
-        
-        form.addEventListener('submit', async (e) => {
+        // Form submission handler
+        document.querySelector('.cta-form').addEventListener('submit', function(e) {
             e.preventDefault();
-
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const company = document.getElementById('company').value;
-            const message = document.getElementById('message').value;
-
-            // Aquí puedes enviar los datos a tu servidor
-            console.log({
-                name,
-                email,
-                company,
-                message,
-                timestamp: new Date()
-            });
-
-            // Mostrar notificación
-            showToast('¡Bienvenido a la lista blanca de Elysia! 🎉');
-
-            // Limpiar formulario
-            form.reset();
-        });
-
-        // ==================== TOAST NOTIFICATION ====================
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.className = 'toast show';
-            toast.textContent = message;
-            document.body.appendChild(toast);
-
-            setTimeout(() => {
-                toast.classList.remove('show');
-                toast.classList.add('hide');
-                setTimeout(() => toast.remove(), 300);
-            }, 4000);
-        }
-
-        // ==================== PARTICLE EFFECT ====================
-        function createParticle(x, y) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = x + 'px';
-            particle.style.top = y + 'px';
-            document.body.appendChild(particle);
-
-            const duration = Math.random() * 1000 + 1000;
-            const angle = Math.random() * Math.PI * 2;
-            const distance = Math.random() * 100 + 100;
-
-            const animation = particle.animate(
-                [
-                    { 
-                        transform: 'translate(0, 0) scale(1)', 
-                        opacity: 1 
-                    },
-                    { 
-                        transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(0)`, 
-                        opacity: 0 
-                    }
-                ],
-                {
-                    duration: duration,
-                    easing: 'cubic-bezier(0, .9, .57, 1)'
-                }
-            );
-
-            animation.onfinish = () => particle.remove();
-        }
-
-        // Crear partículas al hacer hover
-        document.addEventListener('mousemove', (e) => {
-            if (Math.random() > 0.98) {
-                createParticle(e.clientX, e.clientY);
-            }
-        });
-
-        // Click para crear partículas
-        document.addEventListener('click', (e) => {
-            for (let i = 0; i < 3; i++) {
-                createParticle(e.clientX, e.clientY);
-            }
-        });
-
-        // ==================== SCROLL ANIMATION ====================
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.countdown-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.6s ease';
-            observer.observe(el);
+            const email = this.querySelector('input[type="email"]').value;
+            alert('¡Gracias por tu interés! Te contactaremos pronto a ' + email);
+            this.reset();
         });
     </script>
 </body>
