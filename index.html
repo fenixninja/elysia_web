@@ -1314,7 +1314,7 @@
                         <span class="music-year"></span>
                     </div>
                 </div>
-                <audio id="audio-player" preload="auto" autoplay></audio>
+                <audio id="audio-player" preload="metadata"></audio>
             </div>
             
             <ul class="footer-links">
@@ -1478,17 +1478,10 @@
                 audioPlayer.src = song.file;
                 updateSongInfo();
                 
-                // Reproducir automáticamente si se solicita o si ya estaba reproduciendo
-                if (autoPlay || !audioPlayer.paused) {
-                    // Usar un pequeño delay para asegurar que el audio esté listo
-                    audioPlayer.load();
-                    audioPlayer.play().catch(err => {
-                        console.log('Error al reproducir automáticamente:', err);
-                        // Si falla la reproducción automática (por políticas del navegador),
-                        // al menos mostrar el estado de pausa correcto
-                        playIcon.style.display = 'block';
-                        pauseIcon.style.display = 'none';
-                    });
+                // Reproducir automáticamente si se solicita
+                // (para cuando termina una canción y pasa a la siguiente)
+                if (autoPlay) {
+                    audioPlayer.play().catch(err => console.log('Error al reproducir:', err));
                 }
             }
 
@@ -1535,22 +1528,9 @@
                 pauseIcon.style.display = 'none';
             });
 
-            // Cargar una canción aleatoria al iniciar y reproducir automáticamente
+            // Cargar una canción aleatoria al iniciar (sin reproducir automáticamente)
             const randomIndex = getRandomSongIndex();
-            loadSong(randomIndex, true);
-            
-            // Intentar reproducir automáticamente después de que la página esté completamente cargada
-            // Esto ayuda a evitar problemas con las políticas de autoplay de los navegadores
-            window.addEventListener('load', () => {
-                // Dar un pequeño delay para asegurar que todo esté listo
-                setTimeout(() => {
-                    if (audioPlayer.paused && audioPlayer.readyState >= 2) {
-                        audioPlayer.play().catch(err => {
-                            console.log('Autoplay bloqueado por el navegador. El usuario debe interactuar primero.');
-                        });
-                    }
-                }, 500);
-            });
+            loadSong(randomIndex);
         })();
     </script>
 </body>
