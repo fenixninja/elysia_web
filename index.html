@@ -918,11 +918,78 @@
             flex: 1;
         }
 
+        /* Barra de volumen */
+        .volume-control {
+            width: 100%;
+            padding: 0 20px;
+            margin-bottom: 0.5rem;
+        }
+
+        .volume-track {
+            position: relative;
+            width: 100%;
+            height: 2px;
+            background: rgba(212, 175, 55, 0.2);
+            border-radius: 1px;
+            cursor: pointer;
+            transition: height 0.2s ease;
+        }
+
+        .volume-control:hover .volume-track,
+        .volume-control:active .volume-track {
+            height: 3px;
+        }
+
+        .volume-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 30%;
+            background: var(--soft-gold);
+            border-radius: 1px;
+            transition: width 0.1s ease;
+        }
+
+        .volume-thumb {
+            position: absolute;
+            top: 50%;
+            left: 30%;
+            width: 0;
+            height: 0;
+            background: var(--soft-gold);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.2s ease;
+            opacity: 0;
+            cursor: grab;
+        }
+
+        .volume-thumb:active {
+            cursor: grabbing;
+        }
+
+        .volume-control:hover .volume-thumb,
+        .volume-control:active .volume-thumb,
+        .volume-track:active .volume-thumb,
+        .volume-thumb.dragging {
+            width: 12px;
+            height: 12px;
+            opacity: 1;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+        }
+
+        .volume-control:hover .volume-track,
+        .volume-control:active .volume-track {
+            background: rgba(212, 175, 55, 0.3);
+        }
+
         .music-controls {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 1rem;
+            position: relative;
         }
 
         .music-btn {
@@ -1284,7 +1351,14 @@
             <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/texto_elysia-UIs1OhJZvo6ogiwkyImcQkPEfmX1La.png" alt="Élysia" class="footer-logo">
             
             <!-- Reproductor de música -->
-            <div class="music-player">
+            <div class="music-player" style="display: block;">
+                <!-- Barra de volumen -->
+                <div class="volume-control">
+                    <div class="volume-track">
+                        <div class="volume-fill"></div>
+                        <div class="volume-thumb"></div>
+                    </div>
+                </div>
                 <div class="music-controls">
                     <button class="music-btn prev-btn" aria-label="Canción anterior">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1381,15 +1455,16 @@
         // Reproductor de música
         (function() {
             // Lista de canciones de la carpeta play
+            // Usar rutas relativas que funcionen tanto en localhost como en producción
             const songs = [
                 {
-                    file: 'play/Starluxe - Lift.mp3',
+                    file: '.Starluxe - Lift.mp3',
                     title: 'Lift',
                     artist: 'Starluxe',
                     year: '2024'
                 },
                 {
-                    file: 'play/Tristan Barton - Ocean.mp3',
+                    file: '.Tristan Barton - Ocean.mp3',
                     title: 'Ocean',
                     artist: 'Tristan Barton',
                     year: '2024'
@@ -1407,6 +1482,128 @@
             const musicArtist = document.querySelector('.music-artist');
             const musicYear = document.querySelector('.music-year');
             const musicInfoScroll = document.querySelector('.music-info-scroll');
+            
+            // Control de volumen
+            const volumeControl = document.querySelector('.volume-control');
+            const volumeTrack = document.querySelector('.volume-track');
+            const volumeFill = document.querySelector('.volume-fill');
+            const volumeThumb = document.querySelector('.volume-thumb');
+            
+            // Configurar volumen inicial al 30%
+            let currentVolume = 0.3;
+            audioPlayer.volume = currentVolume;
+            updateVolumeUI(currentVolume);
+            
+            // Función para actualizar la UI del volumen
+            function updateVolumeUI(volume) {
+                const percentage = volume * 100;
+                volumeFill.style.width = percentage + '%';
+                volumeThumb.style.left = percentage + '%';
+            }
+            
+            // Función para establecer el volumen desde una posición X
+            function setVolumeFromX(x) {
+                const rect = volumeTrack.getBoundingClientRect();
+                const clickX = x - rect.left;
+                const percentage = Math.max(0, Math.min(100, (clickX / rect.width) * 100));
+                currentVolume = percentage / 100;
+                audioPlayer.volume = currentVolume;
+                updateVolumeUI(currentVolume);
+            }
+            
+            // Event listeners para el control de volumen
+            let isDragging = false;
+            
+            // Click en la barra de volumen (evitar si se hace click en el thumb)
+            volumeTrack.addEventListener('click', (e) => {
+                // No hacer nada si el click fue en el thumb (se maneja en mousedown del thumb)
+                if (e.target === volumeThumb) return;
+                setVolumeFromX(e.clientX);
+                // Mostrar thumb brevemente al hacer click
+                volumeThumb.style.width = '12px';
+                volumeThumb.style.height = '12px';
+                volumeThumb.style.opacity = '1';
+                setTimeout(() => {
+                    if (!isDragging) {
+                        volumeThumb.style.width = '0';
+                        volumeThumb.style.height = '0';
+                        volumeThumb.style.opacity = '0';
+                    }
+                }, 500);
+            });
+            
+            // Touch para móvil
+            volumeTrack.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                setVolumeFromX(touch.clientX);
+                isDragging = true;
+                volumeThumb.classList.add('dragging');
+                // Mostrar thumb en móvil
+                volumeThumb.style.width = '12px';
+                volumeThumb.style.height = '12px';
+                volumeThumb.style.opacity = '1';
+            });
+            
+            volumeTrack.addEventListener('touchmove', (e) => {
+                if (isDragging) {
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    setVolumeFromX(touch.clientX);
+                }
+            });
+            
+            volumeTrack.addEventListener('touchend', () => {
+                isDragging = false;
+                volumeThumb.classList.remove('dragging');
+                // Ocultar thumb después de un delay en móvil
+                setTimeout(() => {
+                    if (!isDragging) {
+                        volumeThumb.style.width = '0';
+                        volumeThumb.style.height = '0';
+                        volumeThumb.style.opacity = '0';
+                    }
+                }, 1000);
+            });
+            
+            // Arrastrar el thumb (mouse)
+            volumeThumb.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                e.stopPropagation(); // Evitar que se active el click en la barra
+                isDragging = true;
+                volumeThumb.classList.add('dragging');
+                
+                const onMouseMove = (e) => {
+                    if (isDragging) {
+                        setVolumeFromX(e.clientX);
+                    }
+                };
+                
+                const onMouseUp = () => {
+                    isDragging = false;
+                    volumeThumb.classList.remove('dragging');
+                    document.removeEventListener('mousemove', onMouseMove);
+                    document.removeEventListener('mouseup', onMouseUp);
+                };
+                
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+            });
+            
+            // Hover para mostrar el thumb
+            volumeControl.addEventListener('mouseenter', () => {
+                volumeThumb.style.width = '12px';
+                volumeThumb.style.height = '12px';
+                volumeThumb.style.opacity = '1';
+            });
+            
+            volumeControl.addEventListener('mouseleave', () => {
+                if (!isDragging) {
+                    volumeThumb.style.width = '0';
+                    volumeThumb.style.height = '0';
+                    volumeThumb.style.opacity = '0';
+                }
+            });
 
             // Función para parsear información de la canción desde el nombre del archivo
             function parseSongInfo(filename) {
@@ -1475,14 +1672,72 @@
                 
                 currentSongIndex = index;
                 const song = songs[currentSongIndex];
-                audioPlayer.src = song.file;
-                updateSongInfo();
                 
-                // Reproducir automáticamente si se solicita
-                // (para cuando termina una canción y pasa a la siguiente)
-                if (autoPlay) {
-                    audioPlayer.play().catch(err => console.log('Error al reproducir:', err));
+                // Intentar diferentes variaciones de rutas para compatibilidad
+                const pathVariations = [
+                    song.file,                    // ./play/cancion.mp3
+                    song.file.replace('./', '/'), // /play/cancion.mp3
+                    song.file.replace('./', ''),  // play/cancion.mp3
+                ];
+                
+                let currentPathIndex = 0;
+                let pathLoaded = false;
+                
+                function tryLoadPath() {
+                    if (pathLoaded) return;
+                    
+                    if (currentPathIndex >= pathVariations.length) {
+                        console.error('No se pudo cargar la canción desde ninguna ruta:', song.title);
+                        console.error('Rutas intentadas:', pathVariations);
+                        return;
+                    }
+                    
+                    const testPath = pathVariations[currentPathIndex];
+                    audioPlayer.src = testPath;
+                    updateSongInfo();
+                    
+                    // Manejar errores de carga
+                    const errorHandler = function(e) {
+                        audioPlayer.removeEventListener('error', errorHandler);
+                        audioPlayer.removeEventListener('loadeddata', successHandler);
+                        audioPlayer.removeEventListener('canplay', successHandler);
+                        
+                        if (currentPathIndex < pathVariations.length - 1) {
+                            currentPathIndex++;
+                            tryLoadPath();
+                        } else {
+                            console.error('Error al cargar:', testPath);
+                            if (audioPlayer.error) {
+                                console.error('Código de error:', audioPlayer.error.code);
+                                console.error('Mensaje:', audioPlayer.error.message);
+                            }
+                        }
+                    };
+                    
+                    // Manejar carga exitosa
+                    const successHandler = function() {
+                        pathLoaded = true;
+                        audioPlayer.removeEventListener('error', errorHandler);
+                        audioPlayer.removeEventListener('loadeddata', successHandler);
+                        audioPlayer.removeEventListener('canplay', successHandler);
+                        
+                        // Si se cargó correctamente, reproducir si se solicita
+                        if (autoPlay) {
+                            audioPlayer.play().catch(err => {
+                                console.log('Error al reproducir:', err);
+                            });
+                        }
+                    };
+                    
+                    audioPlayer.addEventListener('error', errorHandler, { once: true });
+                    audioPlayer.addEventListener('loadeddata', successHandler, { once: true });
+                    audioPlayer.addEventListener('canplay', successHandler, { once: true });
+                    
+                    // Cargar el archivo
+                    audioPlayer.load();
                 }
+                
+                tryLoadPath();
             }
 
             // Función para toggle play/pause
