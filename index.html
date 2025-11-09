@@ -866,6 +866,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 2rem;
         }
 
         .footer-logo {
@@ -904,6 +905,118 @@
 
         .social-icon:hover {
             color: var(--soft-gold);
+        }
+
+        /* Reproductor de música */
+        .music-player {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 300px;
+            max-width: 400px;
+            flex: 1;
+        }
+
+        .music-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .music-btn {
+            background: transparent;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--soft-gold);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .music-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--soft-gold);
+            transform: scale(1.1);
+        }
+
+        .music-btn:active {
+            transform: scale(0.95);
+        }
+
+        .play-pause-btn {
+            width: 48px;
+            height: 48px;
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--soft-gold);
+        }
+
+        .play-pause-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .music-info {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .music-info-scroll {
+            white-space: nowrap;
+            color: rgba(248, 245, 240, 0.7);
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+            display: inline-block;
+            padding: 0 50%;
+            animation: scrollText 20s linear infinite;
+        }
+
+        .music-info:hover .music-info-scroll {
+            animation-play-state: paused;
+        }
+
+        .music-title {
+            font-weight: 600;
+            color: var(--soft-gold);
+        }
+
+        .music-separator {
+            color: rgba(248, 245, 240, 0.4);
+            margin: 0 0.25rem;
+        }
+
+        .music-artist {
+            color: rgba(248, 245, 240, 0.8);
+        }
+
+        .music-year {
+            color: rgba(248, 245, 240, 0.5);
+            font-size: 0.8rem;
+        }
+
+        @keyframes scrollText {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        #audio-player {
+            display: none;
         }
 
         /* Animation Keyframes */
@@ -1021,6 +1134,16 @@
                 flex-direction: column;
                 gap: 2rem;
                 text-align: center;
+            }
+
+            .music-player {
+                min-width: 100%;
+                max-width: 100%;
+                order: 2;
+            }
+
+            .music-info {
+                width: 100%;
             }
 
             .section-header h2 {
@@ -1159,10 +1282,44 @@
     <footer>
         <div class="footer-content">
             <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/texto_elysia-UIs1OhJZvo6ogiwkyImcQkPEfmX1La.png" alt="Élysia" class="footer-logo">
+            
+            <!-- Reproductor de música -->
+            <div class="music-player">
+                <div class="music-controls">
+                    <button class="music-btn prev-btn" aria-label="Canción anterior">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                    <button class="music-btn play-pause-btn" aria-label="Play/Pause">
+                        <svg class="play-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                        <svg class="pause-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                        </svg>
+                    </button>
+                    <button class="music-btn next-btn" aria-label="Siguiente canción">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="music-info">
+                    <div class="music-info-scroll">
+                        <span class="music-title"></span>
+                        <span class="music-separator"> • </span>
+                        <span class="music-artist"></span>
+                        <span class="music-separator"> • </span>
+                        <span class="music-year"></span>
+                    </div>
+                </div>
+                <audio id="audio-player" preload="metadata"></audio>
+            </div>
+            
             <ul class="footer-links">
                 <li><a href="#privacidad">Privacidad</a></li>
                 <li><a href="#terminos">Términos</a></li>
-                <li><a href="#contacto">Contacto</a></li>
             </ul>
         </div>
     </footer>
@@ -1211,12 +1368,156 @@
             });
         });
 
-        document.querySelector('.cta-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            alert('¡Gracias por tu interés! Te contactaremos pronto a ' + email);
-            this.reset();
-        });
+        const ctaForm = document.querySelector('.cta-form');
+        if (ctaForm) {
+            ctaForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input[type="email"]').value;
+                alert('¡Gracias por tu interés! Te contactaremos pronto a ' + email);
+                this.reset();
+            });
+        }
+
+        // Reproductor de música
+        (function() {
+            // Lista de canciones de la carpeta play
+            const songs = [
+                {
+                    file: 'play/Starluxe - Lift.mp3',
+                    title: 'Lift',
+                    artist: 'Starluxe',
+                    year: '2024'
+                },
+                {
+                    file: 'play/Tristan Barton - Ocean.mp3',
+                    title: 'Ocean',
+                    artist: 'Tristan Barton',
+                    year: '2024'
+                }
+            ];
+
+            let currentSongIndex = 0;
+            const audioPlayer = document.getElementById('audio-player');
+            const playPauseBtn = document.querySelector('.play-pause-btn');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            const playIcon = playPauseBtn.querySelector('.play-icon');
+            const pauseIcon = playPauseBtn.querySelector('.pause-icon');
+            const musicTitle = document.querySelector('.music-title');
+            const musicArtist = document.querySelector('.music-artist');
+            const musicYear = document.querySelector('.music-year');
+            const musicInfoScroll = document.querySelector('.music-info-scroll');
+
+            // Función para parsear información de la canción desde el nombre del archivo
+            function parseSongInfo(filename) {
+                // Remover extensión
+                const nameWithoutExt = filename.replace(/\.mp3$/i, '');
+                // Dividir por " - " para separar artista y título
+                const parts = nameWithoutExt.split(' - ');
+                
+                if (parts.length >= 2) {
+                    return {
+                        artist: parts[0].trim(),
+                        title: parts[1].trim(),
+                        year: '2024' // Por defecto, se puede extraer del nombre si está
+                    };
+                }
+                
+                // Si no tiene formato "Artista - Título", usar el nombre completo como título
+                return {
+                    artist: 'Unknown Artist',
+                    title: nameWithoutExt,
+                    year: '2024'
+                };
+            }
+
+            // Función para actualizar la información de la canción
+            function updateSongInfo() {
+                const song = songs[currentSongIndex];
+                musicTitle.textContent = song.title;
+                musicArtist.textContent = song.artist;
+                musicYear.textContent = song.year;
+                
+                // Reiniciar animación de scroll
+                musicInfoScroll.style.animation = 'none';
+                setTimeout(() => {
+                    // Calcular duración basada en el ancho del texto
+                    const textWidth = musicInfoScroll.scrollWidth;
+                    const containerWidth = musicInfoScroll.parentElement.offsetWidth;
+                    if (textWidth > containerWidth) {
+                        // Si el texto es más largo, hacer scroll
+                        const duration = Math.max(15, (textWidth / 50)); // Velocidad ajustable
+                        musicInfoScroll.style.animation = `scrollText ${duration}s linear infinite`;
+                    } else {
+                        // Si el texto cabe, centrarlo sin animación
+                        musicInfoScroll.style.animation = 'none';
+                        musicInfoScroll.style.transform = 'translateX(0)';
+                    }
+                }, 10);
+            }
+
+            // Función para cargar y reproducir una canción
+            function loadSong(index) {
+                if (index < 0 || index >= songs.length) return;
+                
+                currentSongIndex = index;
+                const song = songs[currentSongIndex];
+                audioPlayer.src = song.file;
+                updateSongInfo();
+                
+                // Si estaba reproduciendo, continuar
+                if (!audioPlayer.paused) {
+                    audioPlayer.play().catch(err => console.log('Error al reproducir:', err));
+                }
+            }
+
+            // Función para toggle play/pause
+            function togglePlayPause() {
+                if (audioPlayer.paused) {
+                    audioPlayer.play().catch(err => console.log('Error al reproducir:', err));
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = 'block';
+                } else {
+                    audioPlayer.pause();
+                    playIcon.style.display = 'block';
+                    pauseIcon.style.display = 'none';
+                }
+            }
+
+            // Event listeners
+            playPauseBtn.addEventListener('click', togglePlayPause);
+            
+            prevBtn.addEventListener('click', () => {
+                const newIndex = currentSongIndex === 0 ? songs.length - 1 : currentSongIndex - 1;
+                loadSong(newIndex);
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                const newIndex = currentSongIndex === songs.length - 1 ? 0 : currentSongIndex + 1;
+                loadSong(newIndex);
+            });
+
+            // Cuando termine la canción, pasar a la siguiente
+            audioPlayer.addEventListener('ended', () => {
+                const newIndex = currentSongIndex === songs.length - 1 ? 0 : currentSongIndex + 1;
+                loadSong(newIndex);
+                audioPlayer.play().catch(err => console.log('Error al reproducir:', err));
+            });
+
+            // Actualizar iconos cuando cambie el estado de reproducción
+            audioPlayer.addEventListener('play', () => {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+            });
+
+            audioPlayer.addEventListener('pause', () => {
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+            });
+
+            // Cargar la primera canción al iniciar
+            loadSong(0);
+        })();
     </script>
 </body>
 </html>
