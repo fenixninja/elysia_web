@@ -361,8 +361,15 @@
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
+            justify-items: center;
             position: relative;
             z-index: 1;
+        }
+
+        /* Centrar cuando solo hay un elemento hijo */
+        .hero-content:has(.hero-visual:only-child) {
+            grid-template-columns: 1fr;
+            justify-items: center;
         }
 
         .hero-text h1 {
@@ -435,6 +442,14 @@
             justify-content: center;
             align-items: center;
             gap: 2rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Asegurar que hero-visual esté centrado cuando es único hijo */
+        #inicio .hero-content {
+            grid-template-columns: 1fr;
+            justify-items: center;
         }
 
         .logo-e-hero {
