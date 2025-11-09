@@ -31,6 +31,39 @@
             overflow-x: hidden;
         }
 
+        /* Estilos personalizados para la barra de scroll */
+        /* Para navegadores WebKit (Chrome, Edge, Safari) */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--ebony-black);
+            border-left: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--deep-burgundy), rgba(212, 175, 55, 0.3));
+            border-radius: 6px;
+            border: 2px solid var(--ebony-black);
+            transition: background 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, rgba(212, 175, 55, 0.5), var(--soft-gold));
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        ::-webkit-scrollbar-thumb:active {
+            background: var(--soft-gold);
+        }
+
+        /* Para Firefox */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(212, 175, 55, 0.5) var(--ebony-black);
+        }
+
         h1, h2, h3 {
             font-family: 'Playfair Display', serif;
             font-weight: 600;
