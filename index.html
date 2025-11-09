@@ -111,26 +111,248 @@
             align-items: center;
             justify-content: center;
             padding: 8rem 5% 4rem;
-            background: linear-gradient(135deg, var(--ebony-black) 0%, var(--deep-burgundy) 100%);
+            background: var(--ebony-black);
             position: relative;
             overflow: hidden;
         }
 
+        /* Gradiente animado de fondo */
         .hero::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 20s ease-in-out infinite;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--ebony-black) 0%, var(--deep-burgundy) 50%, var(--ebony-black) 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 15s ease infinite;
+            z-index: 0;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(-50px, 50px); }
+        /* Partículas decorativas flotantes */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: 10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: floatOrb1 25s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        /* Partículas adicionales usando elementos decorativos */
+        .hero .bg-orb-1 {
+            position: absolute;
+            top: 60%;
+            left: 15%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: floatOrb2 20s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        .hero .bg-orb-2 {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(75, 30, 47, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: floatOrb3 18s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        .hero .bg-orb-3 {
+            position: absolute;
+            bottom: 20%;
+            right: 20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: floatOrb4 22s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        /* Efecto de brillo sutil que se mueve */
+        .hero .bg-shine {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(212, 175, 55, 0.03) 50%,
+                transparent 70%
+            );
+            animation: shineSweep 20s linear infinite;
+            z-index: 0;
+        }
+
+        /* Animaciones */
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes floatOrb1 {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(-80px, 60px) scale(1.1);
+            }
+            66% {
+                transform: translate(60px, -40px) scale(0.9);
+            }
+        }
+
+        @keyframes floatOrb2 {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(100px, -80px) scale(1.15);
+            }
+        }
+
+        @keyframes floatOrb3 {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(-60px, 100px) scale(1.2);
+            }
+        }
+
+        @keyframes floatOrb4 {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(-100px, -60px) scale(0.85);
+            }
+            66% {
+                transform: translate(80px, 40px) scale(1.1);
+            }
+        }
+
+        @keyframes shineSweep {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* Chispitas decorativas */
+        .sparkle {
+            position: absolute;
+            background: var(--soft-gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Tamaños diferentes de chispitas */
+        .sparkle.small {
+            width: 3px;
+            height: 3px;
+            opacity: 0;
+            box-shadow: 0 0 6px rgba(212, 175, 55, 0.3);
+        }
+
+        .sparkle.medium {
+            width: 5px;
+            height: 5px;
+            opacity: 0;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .sparkle.large {
+            width: 8px;
+            height: 8px;
+            opacity: 0;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .sparkle.extra-large {
+            width: 12px;
+            height: 12px;
+            opacity: 0;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Animaciones de parpadeo para chispitas */
+        @keyframes sparkleTwinkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes sparkleTwinkle2 {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            25% {
+                opacity: 0.25;
+                transform: scale(1.1);
+            }
+            50% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            75% {
+                opacity: 0.2;
+                transform: scale(0.9);
+            }
+        }
+
+        @keyframes sparkleTwinkle3 {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0.4);
+            }
+            33% {
+                opacity: 0.3;
+                transform: scale(1.2);
+            }
+            66% {
+                opacity: 0.15;
+                transform: scale(0.8);
+            }
+        }
+
+        @keyframes sparkleFloat {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(-20px) translateX(10px);
+            }
         }
 
         .hero-content {
@@ -589,35 +811,57 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <nav>
-            <div class="logo-container">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo_E-WXcDVyh13prQF5SXYBRgGcFiH7oMBL.png" alt="Élysia Logo" class="logo-e">
-            </div>
-            <ul class="nav-links">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#caracteristicas">Características</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-            <button class="cta-button">Comenzar</button>
-        </nav>
-    </header>
-
     <!-- Hero Section -->
     <section class="hero" id="inicio">
+        <div class="bg-shine"></div>
+        <div class="bg-orb-1"></div>
+        <div class="bg-orb-2"></div>
+        <div class="bg-orb-3"></div>
+        
+        <!-- Chispitas decorativas -->
+        <div class="sparkle small" style="top: 15%; left: 10%; animation: sparkleTwinkle 3s ease-in-out infinite;"></div>
+        <div class="sparkle medium" style="top: 25%; left: 20%; animation: sparkleTwinkle2 4s ease-in-out infinite 0.5s;"></div>
+        <div class="sparkle large" style="top: 35%; left: 5%; animation: sparkleTwinkle3 5s ease-in-out infinite 1s;"></div>
+        <div class="sparkle small" style="top: 45%; left: 15%; animation: sparkleTwinkle 3.5s ease-in-out infinite 1.5s;"></div>
+        <div class="sparkle extra-large" style="top: 20%; left: 30%; animation: sparkleTwinkle2 4.5s ease-in-out infinite 0.3s;"></div>
+        <div class="sparkle medium" style="top: 55%; left: 8%; animation: sparkleTwinkle 3.2s ease-in-out infinite 0.8s;"></div>
+        <div class="sparkle small" style="top: 65%; left: 25%; animation: sparkleTwinkle3 4.8s ease-in-out infinite 1.2s;"></div>
+        <div class="sparkle large" style="top: 40%; left: 35%; animation: sparkleTwinkle2 5.2s ease-in-out infinite 0.6s;"></div>
+        <div class="sparkle medium" style="top: 70%; left: 12%; animation: sparkleTwinkle 3.8s ease-in-out infinite 1.8s;"></div>
+        <div class="sparkle small" style="top: 30%; left: 45%; animation: sparkleTwinkle3 4.2s ease-in-out infinite 0.4s;"></div>
+        <div class="sparkle extra-large" style="top: 50%; left: 50%; animation: sparkleTwinkle2 5.5s ease-in-out infinite 1.1s;"></div>
+        <div class="sparkle medium" style="top: 60%; left: 40%; animation: sparkleTwinkle 3.6s ease-in-out infinite 0.7s;"></div>
+        <div class="sparkle large" style="top: 75%; left: 30%; animation: sparkleTwinkle3 4.4s ease-in-out infinite 1.4s;"></div>
+        <div class="sparkle small" style="top: 10%; left: 60%; animation: sparkleTwinkle 3.3s ease-in-out infinite 0.9s;"></div>
+        <div class="sparkle medium" style="top: 18%; left: 70%; animation: sparkleTwinkle2 4.6s ease-in-out infinite 0.2s;"></div>
+        <div class="sparkle large" style="top: 28%; left: 80%; animation: sparkleTwinkle3 5.1s ease-in-out infinite 1.3s;"></div>
+        <div class="sparkle small" style="top: 38%; left: 65%; animation: sparkleTwinkle 3.7s ease-in-out infinite 0.5s;"></div>
+        <div class="sparkle extra-large" style="top: 48%; left: 75%; animation: sparkleTwinkle2 5.3s ease-in-out infinite 1.6s;"></div>
+        <div class="sparkle medium" style="top: 58%; left: 85%; animation: sparkleTwinkle 3.9s ease-in-out infinite 0.3s;"></div>
+        <div class="sparkle small" style="top: 68%; left: 70%; animation: sparkleTwinkle3 4.3s ease-in-out infinite 1.0s;"></div>
+        <div class="sparkle large" style="top: 78%; left: 60%; animation: sparkleTwinkle2 4.9s ease-in-out infinite 0.6s;"></div>
+        <div class="sparkle medium" style="top: 85%; left: 50%; animation: sparkleTwinkle 3.4s ease-in-out infinite 1.7s;"></div>
+        <div class="sparkle small" style="top: 5%; left: 50%; animation: sparkleTwinkle3 4.7s ease-in-out infinite 0.1s;"></div>
+        <div class="sparkle extra-large" style="top: 90%; left: 20%; animation: sparkleTwinkle2 5.4s ease-in-out infinite 1.5s;"></div>
+        <div class="sparkle medium" style="top: 80%; left: 90%; animation: sparkleTwinkle 3.1s ease-in-out infinite 0.8s;"></div>
+        
+        <div class="hero-content">
+            <div class="hero-visual">
+                <img src="logo_E.png" alt="Élysia Logo E" class="logo-e-hero animate-scale">
+                <img src="texto_elysia.png" alt="Élysia" class="logo-elysia-large animate-scale">
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section -->
+    <section class="hero" id="login">
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="animate-on-load">Tu representante <span class="highlight">inteligente</span> disponible 24/7</h1>
                 <p class="animate-on-load">Potencia tu marca personal y negocio con inteligencia artificial de vanguardia. Élysia es la plataforma exclusiva para modelos de alto nivel que buscan profesionalizar su presencia digital.</p>
                 <div class="hero-buttons animate-on-load">
-                    <button class="btn-primary">Solicitar Acceso</button>
-                    <button class="btn-secondary">Conocer Más</button>
+                    <button class="btn-primary">Login</button>
+                    <button class="btn-secondary">Demo Élysia</button>
                 </div>
-            </div>
-            <div class="hero-visual">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo_E-WXcDVyh13prQF5SXYBRgGcFiH7oMBL.png" alt="Élysia Logo E" class="logo-e-hero animate-scale">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/texto_elysia-UIs1OhJZvo6ogiwkyImcQkPEfmX1La.png" alt="Élysia" class="logo-elysia-large animate-scale">
             </div>
         </div>
     </section>
@@ -630,34 +874,34 @@
         </div>
         <div class="features-grid">
             <div class="feature-card animate-on-load">
-                <div class="feature-icon">🤖</div>
+                <div class="feature-icon">💰</div>
                 <h3>IA Personalizada</h3>
-                <p>Chatbot entrenado específicamente para representar tu marca con tu voz, estilo y valores únicos.</p>
+                <p>Chatbot entrenado específicamente para representar tu marca con tu estilo, agenda y precios.</p>
             </div>
             <div class="feature-card animate-on-load">
-                <div class="feature-icon">🔒</div>
+                <div class="feature-icon">🗝️</div>
                 <h3>Seguridad Total</h3>
-                <p>Protección de datos de nivel empresarial. Tu información y la de tus clientes siempre segura.</p>
+                <p>Protección de tus conversaciones con tu clientes.</p>
             </div>
             <div class="feature-card animate-on-load">
-                <div class="feature-icon">📈</div>
+                <div class="feature-icon">💡</div>
                 <h3>Marketing Inteligente</h3>
-                <p>Herramientas avanzadas de autopromoción y análisis para maximizar tu alcance y conversiones.</p>
+                <p>Herramientas avanzadas para maximazar las ganancias y fidelizar clientes.</p>
             </div>
             <div class="feature-card animate-on-load">
-                <div class="feature-icon">💼</div>
+                <div class="feature-icon">🛎️</div>
                 <h3>Gestión Profesional</h3>
                 <p>Administra reservas, consultas y negociaciones de manera eficiente y profesional.</p>
             </div>
             <div class="feature-card animate-on-load">
-                <div class="feature-icon">🌐</div>
+                <div class="feature-icon">💛</div>
                 <h3>Presencia Global</h3>
-                <p>Atiende a clientes en múltiples idiomas y zonas horarias sin límites.</p>
+                <p>Atiende a clientes en múltiples idiomas y horarios.</p>
             </div>
             <div class="feature-card animate-on-load">
                 <div class="feature-icon">✨</div>
                 <h3>Experiencia Premium</h3>
-                <p>Interfaz elegante y sofisticada que refleja tu nivel de profesionalismo.</p>
+                <p>Genera conversaciones elegantes y sofisticadas que reflejan tu nivel de profesionalismo.</p>
             </div>
         </div>
     </section>
@@ -671,28 +915,16 @@
             </div>
             <div class="stat-item animate-on-load">
                 <h3>100%</h3>
-                <p>Confidencial</p>
+                <p>Confidencial entre tu y tu cliente</p>
             </div>
             <div class="stat-item animate-on-load">
                 <h3>∞</h3>
-                <p>Escalabilidad</p>
+                <p>Evita los bucles de preguntas y respuestas</p>
             </div>
             <div class="stat-item animate-on-load">
                 <h3>AI</h3>
-                <p>Tecnología</p>
+                <p>Conversación natural y fluida</p>
             </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section" id="contacto">
-        <div class="cta-content">
-            <h2 class="animate-on-load">Únete a la élite</h2>
-            <p class="animate-on-load">Acceso exclusivo para modelos profesionales. Solicita tu invitación y descubre cómo Élysia puede transformar tu carrera.</p>
-            <form class="cta-form animate-on-load">
-                <input type="email" placeholder="Tu correo electrónico" required>
-                <button type="submit">Solicitar Invitación</button>
-            </form>
         </div>
     </section>
 
@@ -705,10 +937,6 @@
                 <li><a href="#terminos">Términos</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
-            <div class="footer-social">
-                <svg class="social-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
-                <svg class="social-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
-            </div>
         </div>
     </footer>
 
