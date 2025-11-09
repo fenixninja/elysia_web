@@ -1314,7 +1314,7 @@
                         <span class="music-year"></span>
                     </div>
                 </div>
-                <audio id="audio-player" preload="metadata"></audio>
+                <audio id="audio-player" preload="auto" autoplay></audio>
             </div>
             
             <ul class="footer-links">
@@ -1456,8 +1456,21 @@
                 }, 10);
             }
 
+            // Función para obtener un índice aleatorio de canción
+            // Evita repetir la misma canción consecutivamente
+            function getRandomSongIndex(excludeIndex = -1) {
+                if (songs.length <= 1) return 0;
+                
+                let randomIndex;
+                do {
+                    randomIndex = Math.floor(Math.random() * songs.length);
+                } while (randomIndex === excludeIndex && songs.length > 1);
+                
+                return randomIndex;
+            }
+
             // Función para cargar y reproducir una canción
-            function loadSong(index) {
+            function loadSong(index, autoPlay = false) {
                 if (index < 0 || index >= songs.length) return;
                 
                 currentSongIndex = index;
@@ -1465,9 +1478,17 @@
                 audioPlayer.src = song.file;
                 updateSongInfo();
                 
-                // Si estaba reproduciendo, continuar
-                if (!audioPlayer.paused) {
-                    audioPlayer.play().catch(err => console.log('Error al reproducir:', err));
+                // Reproducir automáticamente si se solicita o si ya estaba reproduciendo
+                if (autoPlay || !audioPlayer.paused) {
+                    // Usar un pequeño delay para asegurar que el audio esté listo
+                    audioPlayer.load();
+                    audioPlayer.play().catch(err => {
+                        console.log('Error al reproducir automáticamente:', err);
+                        // Si falla la reproducción automática (por políticas del navegador),
+                        // al menos mostrar el estado de pausa correcto
+                        playIcon.style.display = 'block';
+                        pauseIcon.style.display = 'none';
+                    });
                 }
             }
 
@@ -1500,8 +1521,7 @@
             // Cuando termine la canción, pasar a la siguiente
             audioPlayer.addEventListener('ended', () => {
                 const newIndex = currentSongIndex === songs.length - 1 ? 0 : currentSongIndex + 1;
-                loadSong(newIndex);
-                audioPlayer.play().catch(err => console.log('Error al reproducir:', err));
+                loadSong(newIndex, true);
             });
 
             // Actualizar iconos cuando cambie el estado de reproducción
@@ -1515,8 +1535,22 @@
                 pauseIcon.style.display = 'none';
             });
 
-            // Cargar la primera canción al iniciar
-            loadSong(0);
+            // Cargar una canción aleatoria al iniciar y reproducir automáticamente
+            const randomIndex = getRandomSongIndex();
+            loadSong(randomIndex, true);
+            
+            // Intentar reproducir automáticamente después de que la página esté completamente cargada
+            // Esto ayuda a evitar problemas con las políticas de autoplay de los navegadores
+            window.addEventListener('load', () => {
+                // Dar un pequeño delay para asegurar que todo esté listo
+                setTimeout(() => {
+                    if (audioPlayer.paused && audioPlayer.readyState >= 2) {
+                        audioPlayer.play().catch(err => {
+                            console.log('Autoplay bloqueado por el navegador. El usuario debe interactuar primero.');
+                        });
+                    }
+                }, 500);
+            });
         })();
     </script>
 </body>
