@@ -1260,7 +1260,7 @@
         
         <div class="hero-content">
             <div class="hero-visual">
-                <img src="logo_E.png" alt="Élysia Logo E" class="logo-e-hero animate-scale">
+                <img src="logo_oro.png" alt="Élysia Logo E" class="logo-e-hero animate-scale">
                 <img src="texto_elysia.png" alt="Élysia" class="logo-elysia-large animate-scale">
             </div>
         </div>
@@ -1788,5 +1788,166 @@
             loadSong(randomIndex);
         })();
     </script>
+    <!-- Cookie Consent Banner -->
+<div id="cookie-consent" class="cookie-consent">
+    <div class="cookie-content">
+        <p>Usamos una cookie básica para mejorar tu experiencia y reproducir música de fondo. ¿Aceptas?</p>
+        <div class="cookie-buttons">
+            <button id="accept-cookies" class="btn-cookie btn-accept">Aceptar</button>
+            <button id="reject-cookies" class="btn-cookie btn-reject">Rechazar</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .cookie-consent {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(11, 11, 11, 0.95);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-radius: 8px;
+        padding: 1.2rem 1.5rem;
+        max-width: 90%;
+        width: 500px;
+        z-index: 9999;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        font-family: 'Lato', sans-serif;
+        color: var(--ivory);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease;
+    }
+
+    .cookie-consent.show {
+        opacity: 1;
+        visibility: visible;
+        bottom: 30px;
+    }
+
+    .cookie-content {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        width: 100%;
+    }
+
+    .cookie-content p {
+        font-size: 0.95rem;
+        color: rgba(248, 245, 240, 0.9);
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .cookie-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-cookie {
+        padding: 0.65rem 1.5rem;
+        border-radius: 4px;
+        font-family: 'Lato', sans-serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 100px;
+    }
+
+    .btn-accept {
+        background: var(--soft-gold);
+        color: var(--ebony-black);
+        border: none;
+    }
+
+    .btn-accept:hover {
+        background: #C19B2E;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-reject {
+        background: transparent;
+        color: var(--ivory);
+        border: 1.5px solid rgba(212, 175, 55, 0.5);
+    }
+
+    .btn-reject:hover {
+        background: rgba(212, 175, 55, 0.1);
+        border-color: var(--soft-gold);
+        color: var(--soft-gold);
+    }
+
+    @media (max-width: 600px) {
+        .cookie-consent {
+            width: 95%;
+            padding: 1rem;
+            bottom: 15px;
+        }
+
+        .cookie-content p {
+            font-size: 0.9rem;
+        }
+
+        .cookie-buttons {
+            flex-direction: column;
+        }
+
+        .btn-cookie {
+            width: 100%;
+        }
+    }
+</style>
+
+<script>
+    // === COOKIE CONSENT & MUSIC PLAYER INTEGRATION ===
+    document.addEventListener('DOMContentLoaded', function () {
+        const cookieBanner = document.getElementById('cookie-consent');
+        const acceptBtn = document.getElementById('accept-cookies');
+        const rejectBtn = document.getElementById('reject-cookies');
+        const audioPlayer = document.getElementById('audio-player');
+
+        // Mostrar banner si no hay preferencia guardada
+        if (!localStorage.getItem('cookieConsent')) {
+            setTimeout(() => {
+                cookieBanner.classList.add('show');
+            }, 800);
+        } else if (localStorage.getItem('cookieConsent') === 'accepted') {
+            // Si ya aceptó, iniciar música automáticamente
+            if (audioPlayer && audioPlayer.paused) {
+                audioPlayer.play().catch(() => {});
+            }
+        }
+
+        // Función para ocultar banner y guardar preferencia
+        function handleConsent(consent) {
+            //localStorage.setItem('cookieConsent', consent);
+            cookieBanner.classList.remove('show');
+            setTimeout(() => {
+                cookieBanner.style.display = 'none';
+            }, 400);
+
+            // Reproducir música si se acepta o rechaza (como pediste)
+            if (audioPlayer && audioPlayer.paused) {
+                audioPlayer.play().catch(err => {
+                    console.log('Reproducción automática bloqueada:', err);
+                });
+            }
+        }
+
+        acceptBtn.addEventListener('click', () => handleConsent('accepted'));
+        rejectBtn.addEventListener('click', () => handleConsent('rejected'));
+    });
+</script>
 </body>
-</html>
+</html> 
