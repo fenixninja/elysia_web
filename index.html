@@ -231,6 +231,38 @@
             z-index: 0;
         }
 
+        /* Efecto de estela del cursor */
+        .cursor-trail {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--soft-gold) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.6), 0 0 24px rgba(212, 175, 55, 0.4);
+            animation: trailFade 0.8s ease-out forwards;
+        }
+
+        .cursor-trail.large {
+            width: 12px;
+            height: 12px;
+            box-shadow: 0 0 16px rgba(212, 175, 55, 0.7), 0 0 32px rgba(212, 175, 55, 0.5);
+        }
+
+        @keyframes trailFade {
+            0% {
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.3);
+            }
+        }
+
         /* Animaciones */
         @keyframes gradientShift {
             0% {
@@ -1449,6 +1481,61 @@
                     element.classList.add('loaded');
                 }, 200 + (index * 150));
             });
+
+            // Efecto de estela del cursor en la sección hero
+            const heroSection = document.querySelector('.hero');
+            if (heroSection) {
+                let lastTrailTime = 0;
+                const trailInterval = 30; // Milisegundos entre partículas
+                let trailCounter = 0;
+
+                heroSection.addEventListener('mousemove', function(e) {
+                    const currentTime = Date.now();
+                    
+                    // Limitar la frecuencia de creación de partículas
+                    if (currentTime - lastTrailTime < trailInterval) {
+                        return;
+                    }
+                    lastTrailTime = currentTime;
+
+                    // Crear partícula de estela
+                    const trail = document.createElement('div');
+                    trail.className = 'cursor-trail';
+                    
+                    // Cada 5 partículas, crear una más grande
+                    if (trailCounter % 5 === 0) {
+                        trail.classList.add('large');
+                    }
+                    trailCounter++;
+
+                    // Obtener posición relativa al hero
+                    const rect = heroSection.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    trail.style.left = x + 'px';
+                    trail.style.top = y + 'px';
+
+                    heroSection.appendChild(trail);
+
+                    // Remover la partícula después de la animación
+                    setTimeout(() => {
+                        if (trail.parentNode) {
+                            trail.parentNode.removeChild(trail);
+                        }
+                    }, 800);
+                });
+
+                // Limpiar partículas cuando el cursor sale de la sección
+                heroSection.addEventListener('mouseleave', function() {
+                    const trails = heroSection.querySelectorAll('.cursor-trail');
+                    trails.forEach(trail => {
+                        if (trail.parentNode) {
+                            trail.parentNode.removeChild(trail);
+                        }
+                    });
+                });
+            }
         });
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
