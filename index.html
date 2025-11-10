@@ -661,7 +661,7 @@
         }
 
         .logo-e-hero {
-            max-width: 150px;
+            max-width: 300px;
             width: 100%;
             height: auto;
             filter: drop-shadow(0 10px 30px rgba(212, 175, 55, 0.4));
@@ -741,6 +741,28 @@
         .feature-icon {
             font-size: 3rem;
             margin-bottom: 1.5rem;
+        }
+
+        .feature-icon-img {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1.5rem;
+            transition: transform 0.4s ease, filter 0.4s ease;
+            display: block;
+        }
+
+        .feature-card:hover .feature-icon-img {
+            animation: iconFloat 2s ease-in-out infinite;
+            filter: drop-shadow(0 8px 16px rgba(212, 175, 55, 0.3));
+        }
+
+        @keyframes iconFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
         }
 
         .feature-card h3 {
@@ -1181,7 +1203,7 @@
             }
 
             .logo-e-hero {
-                max-width: 100px;
+                max-width: 300px;
             }
 
             .features-grid {
@@ -1261,7 +1283,7 @@
         <div class="hero-content">
             <div class="hero-visual">
                 <img src="logo_oro.png" alt="Élysia Logo E" class="logo-e-hero animate-scale">
-                <img src="elysia_oro.png" alt="Élysia" class="logo-elysia-large animate-scale">
+                <img src="3lysia.png" alt="Élysia" class="logo-elysia-large animate-scale">
             </div>
         </div>
     </section>
