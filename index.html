@@ -243,7 +243,6 @@
             opacity: 0;
             transform: translate(-50%, -50%);
             box-shadow: 0 0 12px rgba(212, 175, 55, 0.6), 0 0 24px rgba(212, 175, 55, 0.4);
-            animation: trailFade 0.8s ease-out forwards;
         }
 
         .cursor-trail.large {
@@ -252,14 +251,35 @@
             box-shadow: 0 0 16px rgba(212, 175, 55, 0.7), 0 0 32px rgba(212, 175, 55, 0.5);
         }
 
-        @keyframes trailFade {
+        /* Animación que reduce el tamaño mientras se desvanece */
+        .cursor-trail.fade-shrink {
+            animation: trailFadeShrink 0.8s ease-out forwards;
+        }
+
+        /* Animación que solo se desvanece sin cambiar el tamaño */
+        .cursor-trail.fade-only {
+            animation: trailFadeOnly 0.8s ease-out forwards;
+        }
+
+        @keyframes trailFadeShrink {
             0% {
-                opacity: 0.8;
-                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.9;
+                transform: translate(-50%, -50%) scale(1.4);
             }
             100% {
                 opacity: 0;
-                transform: translate(-50%, -50%) scale(0.3);
+                transform: translate(-50%, -50%) scale(0.2);
+            }
+        }
+
+        @keyframes trailFadeOnly {
+            0% {
+                opacity: 0.9;
+                transform: translate(-50%, -50%) scale(1.3);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.3);
             }
         }
 
@@ -480,6 +500,8 @@
             letter-spacing: 1px;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
         }
 
         .btn-primary:hover {
@@ -1332,7 +1354,7 @@
                 <h1 class="animate-on-load">Tu representante <span class="highlight">inteligente</span> 24/7</h1>
                 <p class="animate-on-load">Potencia tu marca personal y beneficios automatizando la parte aburrida de las conversaciones en whatsapp. Élysia es la plataforma exclusiva para modelos de alto nivel que buscan profesionalizar su presencia digital.</p>
                 <div class="hero-buttons animate-on-load">
-                    <button class="btn-primary">Entrar</button>
+                    <a href="https://app.elys-ia.com" class="btn-primary">Entrar</a>
                     <a href="https://wa.me/56950770025?text=Hola%20Elysia" target="_blank" rel="noopener noreferrer" class="btn-secondary">Demo Élysia</a>
                 </div>
             </div>
@@ -1485,7 +1507,7 @@
             });
 
             // Efecto de estela del cursor en la sección hero
-            const heroSection = document.querySelector('.hero');
+            const heroSection = document.querySelector('#inicio');
             if (heroSection) {
                 let lastTrailTime = 0;
                 const trailInterval = 30; // Milisegundos entre partículas
@@ -1509,6 +1531,14 @@
                         trail.classList.add('large');
                     }
                     trailCounter++;
+
+                    // Asignar aleatoriamente una animación: 60% se reducen, 40% solo se desvanecen
+                    const randomAnimation = Math.random();
+                    if (randomAnimation < 0.6) {
+                        trail.classList.add('fade-shrink');
+                    } else {
+                        trail.classList.add('fade-only');
+                    }
 
                     // Obtener posición relativa al hero
                     const rect = heroSection.getBoundingClientRect();
